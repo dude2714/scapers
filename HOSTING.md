@@ -56,6 +56,7 @@ https://raw.githubusercontent.com/dude2714/scapers/main/repository/zips/reposito
 
 | Repository Version | Kodi Version | Status |
 |--------------------|--------------|--------|
+| 1.0.1              | Omega (v21)  | ✅ Supported |
 | 1.0.1              | Nexus (v20)  | ✅ Supported |
 | 1.0.1              | Matrix (v19) | ✅ Supported |
 | 1.0.0              | Matrix (v19) | Legacy |
