@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.cocoscrapers" name="CocoScrapers Repository" version="1.0.1" provider-name="dude2714">
+    <extension point="xbmc.addon.repository" name="CocoScrapers Repository">
+        <dir minversion="19.0">
+            <info compressed="false">https://raw.githubusercontent.com/dude2714/scapers/main/repository/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/dude2714/scapers/main/repository/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/dude2714/scapers/main/repository/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang="en_GB">CocoScrapers Repository</summary>
+        <description lang="en_GB">Custom maintained CocoScrapers repository with up-to-date scraper modules for Kodi.</description>
+        <news>Hosting custom maintained CocoScrapers addons</news>
+    </extension>
+</addon>
