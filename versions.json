@@ -1,0 +1,24 @@
+{
+  "addon_id": "repository.cocoscrapers",
+  "official_source": "https://cocojoe2411.github.io",
+  "last_checked": null,
+  "latest_version": "1.0.1",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "source_url": "https://cocojoe2411.github.io/repository.cocoscrapers-1.0.0.zip",
+      "downloaded": true,
+      "filename": "repository.cocoscrapers-1.0.0.zip",
+      "size_bytes": 69611,
+      "sha256": "42662ae85d5e474e05faaee23799403f744395ec0d1df19271781fdcf9f8577a"
+    },
+    "1.0.1": {
+      "version": "1.0.1",
+      "source_url": "https://cocojoe2411.github.io/repository.cocoscrapers-1.0.1.zip",
+      "downloaded": true,
+      "filename": "repository.cocoscrapers-1.0.1.zip",
+      "size_bytes": 68212,
+      "sha256": "e27a9bf1ecbe1d3622220b17100f8baaf23eab3f180c904bee65725b15c9dcb6"
+    }
+  }
+}

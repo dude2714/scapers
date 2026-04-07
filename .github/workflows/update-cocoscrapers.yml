@@ -1,0 +1,90 @@
+name: Update Coco Scrapers
+
+on:
+  schedule:
+    # Run every day at 06:00 UTC
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Re-download versions even if already present"
+        required: false
+        default: "false"
+        type: boolean
+      cleanup:
+        description: "Remove older versions after downloading (keep latest 3)"
+        required: false
+        default: "false"
+        type: boolean
+      dry_run:
+        description: "Check for updates without committing anything"
+        required: false
+        default: "false"
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Check and update Coco Scrapers
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run update script
+        id: update
+        run: |
+          ARGS=""
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ "${{ inputs.cleanup }}" = "true" ]; then ARGS="$ARGS --cleanup"; fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+
+          python3 scripts/update_cocoscrapers.py $ARGS
+
+          # Check if anything changed
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            LATEST=$(python3 -c "import json; d=json.load(open('versions.json')); print(d.get('latest_version','unknown'))")
+            echo "latest_version=$LATEST" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update index.html to point at latest version
+        if: steps.update.outputs.changed == 'true' && inputs.dry_run != 'true'
+        run: |
+          LATEST="${{ steps.update.outputs.latest_version }}"
+          if [ -n "$LATEST" ]; then
+            cat > index.html <<EOF
+          <!DOCTYPE html>
+          <a href="repository.cocoscrapers-${LATEST}.zip">repository.cocoscrapers-${LATEST}.zip</a>
+          EOF
+            echo "index.html updated to point at version $LATEST"
+          fi
+
+      - name: Commit and push updates
+        if: steps.update.outputs.changed == 'true' && inputs.dry_run != 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add repository.cocoscrapers-*.zip versions.json CHANGELOG.md index.html 2>/dev/null || true
+          git add -u
+
+          LATEST="${{ steps.update.outputs.latest_version }}"
+          git commit -m "chore: update Coco Scrapers to v${LATEST}" \
+                     -m "Automated update via GitHub Actions workflow." \
+            || echo "Nothing to commit"
+
+          git push origin HEAD
