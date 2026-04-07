@@ -1,0 +1,7 @@
+<addon>
+    <id>YourAddonId</id>
+    <version>1.0.0</version>
+    <provider name="YourProviderName" />
+    <extension point="xbmc.python.script" library="default.py" />
+    <minversion>20.0</minversion>
+</addon>
