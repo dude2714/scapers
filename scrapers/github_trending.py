@@ -43,16 +43,16 @@ def get_trending(language: str = "", since: str = "daily") -> list[dict]:
         language_name = lang_tag.get_text(strip=True) if lang_tag else ""
 
         stars_tags = article.select("a.Link--muted")
-        stars = stars_tags[0].get_text(strip=True).replace(",", "") if len(stars_tags) > 0 else "0"
-        forks = stars_tags[1].get_text(strip=True).replace(",", "") if len(stars_tags) > 1 else "0"
+        stars_raw = stars_tags[0].get_text(strip=True).replace(",", "") if len(stars_tags) > 0 else "0"
+        forks_raw = stars_tags[1].get_text(strip=True).replace(",", "") if len(stars_tags) > 1 else "0"
 
         repos.append(
             {
                 "name": full_name,
                 "description": description,
                 "language": language_name,
-                "stars": stars,
-                "forks": forks,
+                "stars": int(stars_raw) if stars_raw.isdigit() else 0,
+                "forks": int(forks_raw) if forks_raw.isdigit() else 0,
                 "url": repo_url,
             }
         )
