@@ -1,0 +1,47 @@
+{
+  "_comment": "Customization manifest for CocoScrapers. Each entry specifies which addon and version the customization targets.",
+  "patches": [
+    {
+      "_comment": "Example patch entry — remove the leading underscore to activate",
+      "_addon_id": "script.module.cocoscrapers",
+      "_version_pattern": ".*",
+      "_file": "example_fix.patch",
+      "_description": "Example patch that fixes scraper timeout handling"
+    }
+  ],
+  "config": [
+    {
+      "_comment": "Example config override — remove the leading underscore to activate",
+      "_addon_id": "script.module.cocoscrapers",
+      "_version_pattern": ".*",
+      "_file": "custom_settings.xml",
+      "_target": "resources/settings.xml",
+      "_description": "Custom default settings"
+    }
+  ],
+  "modules": [
+    {
+      "_comment": "Example module addition — remove the leading underscore to activate",
+      "_addon_id": "script.module.cocoscrapers",
+      "_version_pattern": ".*",
+      "_file": "my_custom_scraper.py",
+      "_target": "lib/cocoscrapers/sources_mv/my_custom_scraper.py",
+      "_description": "Custom scraper module"
+    }
+  ],
+  "fixes": [
+    {
+      "_comment": "Example text-replacement fix — remove the leading underscore to activate",
+      "_addon_id": "script.module.cocoscrapers",
+      "_version_pattern": ".*",
+      "_file": "lib/cocoscrapers/sources_mv/some_scraper.py",
+      "_replacements": [
+        {
+          "_find": "old_api_endpoint",
+          "_replace": "new_api_endpoint"
+        }
+      ],
+      "_description": "Update API endpoint in some_scraper"
+    }
+  ]
+}
